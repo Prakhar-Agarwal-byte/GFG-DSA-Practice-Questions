@@ -8,7 +8,7 @@ class Solution {
     int count = 1;
     int endC = arr[0].end;
     for (int i = 1; i < n; i++) {
-      if (arr[i].start >= endC) {
+      if (arr[i].start > endC) {
         count++;
         endC = arr[i].end;
       }
