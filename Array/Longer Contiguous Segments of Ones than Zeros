@@ -1,0 +1,20 @@
+class Solution {
+  public boolean checkZeroOnes(String s) {
+    int onesMax = 0;
+    int zerosMax = 0;
+    int onesLen = 0;
+    int zerosLen = 0;
+    for (int i = 0; i < s.length(); i++) {
+      if (s.charAt(i) == '1') {
+        onesLen++;
+        zerosLen = 0;
+      } else {
+        zerosLen++;
+        onesLen = 0;
+      }
+      onesMax = Math.max(onesMax, onesLen);
+      zerosMax = Math.max(zerosMax, zerosLen);
+    }
+    return onesMax > zerosMax;
+  }
+}
