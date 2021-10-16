@@ -8,6 +8,7 @@ class Solution {
     int[] disc = new int[V];
     int[] low = new int[V];
     int[] parent = new int[V];
+    Arrays.fill(parent, -1);
     for (int i = 0; i < V; i++) {
       for (int e : adjList.get(i)) {
         if (!visited[e]) {
