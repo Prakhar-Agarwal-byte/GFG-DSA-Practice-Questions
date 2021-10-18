@@ -1,54 +1,53 @@
-import java.util.*;
-
 class Solution {
-  public void kosaraju(ArrayList<ArrayList<Integer>> adjList, int V) {
-    ArrayList<ArrayList<Integer>> rev = new ArrayList<>();
-    for (int i = 0; i < V; i++) {
-      rev.add(new ArrayList<Integer>());
-    }
+  public int kosaraju(int V, ArrayList<ArrayList<Integer>> adj) {
     boolean[] visited = new boolean[V];
     Stack<Integer> st = new Stack<>();
-    for (int u = 0; u < V; u++) {
-      if (!visited[u]) {
-        dfs1(u, visited, st, adjList);
-      }
+    ArrayList<ArrayList<Integer>> rev = new ArrayList<>();
+    for (int i = 0; i < V; i++) {
+      rev.add(new ArrayList<>());
     }
-    reverseEdges(adjList, rev, V);
+    for (int i = 0; i < V; i++) {
+        if (!visited[i]) {
+          dfs1(i, visited, st, adj);
+        }
+      }
+    reverse(adj, rev);
+    int count = 0;
     Arrays.fill(visited, false);
     while (!st.isEmpty()) {
       int cur = st.pop();
       if (!visited[cur]) {
-        dfs2(cur, visited, adjList);
+        dfs2(cur, visited, rev);
+        count++;
       }
-      System.out.println();
     }
+    return count;
   }
 
-  private void dfs2(int cur, boolean[] visited, ArrayList<ArrayList<Integer>> adjList) {
-    visited[cur] = true;
-    System.out.print(cur + " ");
-    for (int e : adjList.get(cur)) {
+  private void dfs2(int i, boolean[] visited, ArrayList<ArrayList<Integer>> rev) {
+    visited[i] = true;
+    for (int e : rev.get(i)) {
       if (!visited[e]) {
-        dfs2(e, visited, adjList);
+        dfs2(e, visited, rev);
       }
     }
   }
 
-  private void reverseEdges(ArrayList<ArrayList<Integer>> adjList, ArrayList<ArrayList<Integer>> rev, int V) {
-    for (int u = 0; u < V; u++) {
-      for (int e : adjList.get(u)) {
-        rev.get(e).add(u);
+  private void reverse(ArrayList<ArrayList<Integer>> adj, ArrayList<ArrayList<Integer>> rev) {
+    for (int i = 0; i < adj.size(); i++) {
+      for (int e : adj.get(i)) {
+        rev.get(e).add(i);
       }
     }
   }
 
-  private void dfs1(int u, boolean[] visited, Stack<Integer> st, ArrayList<ArrayList<Integer>> adjList) {
-    visited[u] = true;
-    for (int v : adjList.get(u)) {
-      if (!visited[v]) {
-        dfs1(v, visited, st, adjList);
+  private void dfs1(int i, boolean[] visited, Stack<Integer> st, ArrayList<ArrayList<Integer>> adj) {
+    visited[i] = true;
+    for (int e : adj.get(i)) {
+      if (!visited[e]) {
+        dfs1(e, visited, st, adj);
       }
     }
-    st.push(u);
+    st.push(i);
   }
 }
