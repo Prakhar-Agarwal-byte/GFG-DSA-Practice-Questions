@@ -44,7 +44,6 @@ class Solution {
 
   private void dfs1(int u, boolean[] visited, Stack<Integer> st, ArrayList<ArrayList<Integer>> adjList) {
     visited[u] = true;
-    st.push(u);
     for (int v : adjList.get(u)) {
       if (!visited[v]) {
         dfs1(v, visited, st, adjList);
